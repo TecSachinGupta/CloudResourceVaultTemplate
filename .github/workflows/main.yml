@@ -1,0 +1,37 @@
+name: repo-sync
+
+# Doc: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
+
+on:
+  schedule:
+    - cron:  "0 1 * * MON"
+  # Allow this workflow to be manually triggered
+  workflow_dispatch:
+
+env:
+  SOURCE_BRANCH: main
+  SOURCE_REPOSITORY: TecSachinGupta/CloudResourceVaultTemplate
+
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Doc: https://github.com/marketplace/actions/checkout
+      - name: Checkout ${{ github.repository }}
+        uses: actions/checkout@v4
+        if: github.repository != env.SOURCE_REPOSITORY
+        with:
+          token: ${{ secrets.MY_CLASSIC_PAT }}
+
+      # Doc: https://github.com/marketplace/actions/actions-template-sync
+      - name: actions-template-sync
+        uses: AndreasAugustin/actions-template-sync@v2.5.1
+        if: github.repository != env.SOURCE_REPOSITORY
+        with:
+          source_gh_token: ${{ secrets.MY_CLASSIC_PAT }}
+          target_gh_token: ${{ secrets.MY_CLASSIC_PAT }}
+          source_repo_path: ${{ env.SOURCE_REPOSITORY }}
+          upstream_branch: ${{ env.SOURCE_BRANCH }}
+          pr_title: "[actions-template-sync] Upstream template update"
+          pr_commit_msg: "chore(template): upstream template update"
