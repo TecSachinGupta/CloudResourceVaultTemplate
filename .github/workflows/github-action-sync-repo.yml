@@ -4,7 +4,7 @@ on:
   schedule:
     - cron:  "0 1 * * MON"
   workflow_dispatch:
-eenv:
+env:
   SOURCE_BRANCH: main
   SOURCE_REPOSITORY: TecSachinGupta/CloudResourceVaultTemplate
 jobs:
