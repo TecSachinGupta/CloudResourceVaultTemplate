@@ -28,6 +28,8 @@ jobs:
       # Access the private template repository
       - name: Add Template Repository
         run: |
+          git config --local user.name "${{ github.actor }}"
+          git config --local user.email "${{ github.actor }}@noreply.github.com"
           git remote add template-repo https://${{ github.actor }}:${{ secrets.MY_CLASSIC_PAT }}@github.com/${{ env.SOURCE_REPOSITORY }}.git
           git fetch template-repo
           git merge template-repo/main --allow-unrelated-histories
@@ -35,11 +37,14 @@ jobs:
           git add .
           git commit -m "Sync from template"
           git push origin sync-template-branch
+        if: github.repository != env.SOURCE_REPOSITORY
 
       # Create a Pull Request
       - name: Create Pull Request
         run: |
-          gh auth login --with-token < ${{ secrets.MY_CLASSIC_PAT }}
+          # gh auth login --with-token < ${{ secrets.MY_CLASSIC_PAT }}
           gh pr create -B main -H sync-template-branch --title "Sync with Base Template" --body "This pull request updates the repo with private template changes."
         env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: github.repository != env.SOURCE_REPOSITORY
