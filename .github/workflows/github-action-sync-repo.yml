@@ -1,0 +1,26 @@
+name: Sync Repo With Base Template
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on:
+  schedule:
+    - cron:  "0 1 * * MON"
+  workflow_dispatch:
+eenv:
+  SOURCE_BRANCH: main
+  SOURCE_REPOSITORY: TecSachinGupta/CloudResourceVaultTemplate
+jobs:
+  Sync-Repo-With-Base-Template:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        if: github.repository != env.SOURCE_REPOSITORY
+      
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+      
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      
+      - name: Sync from the template
+        run: echo "🍏 This job's status is ${{ job.status }}."
+        
