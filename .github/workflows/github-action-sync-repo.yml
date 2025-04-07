@@ -14,6 +14,8 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
         if: github.repository != env.SOURCE_REPOSITORY
+        with:
+          token: ${{ secrets.MY_CLASSIC_PAT }}
       
       - run: echo "🍏 This job's status is ${{ job.status }}."
       
@@ -21,6 +23,23 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       
-      - name: Sync from the template
-        run: echo "🍏 This job's status is ${{ job.status }}."
-        
+      # - name: Sync from the template
+        # run: echo "🍏 This job's status is ${{ job.status }}."
+      # Access the private template repository
+      - name: Add Template Repository
+        run: |
+          git remote add template-repo https://${{ github.actor }}:${{ secrets.MY_CLASSIC_PAT }}@github.com/${{ env.SOURCE_REPOSITORY }}.git
+          git fetch template-repo
+          git merge template-repo/main --allow-unrelated-histories
+          git checkout -b sync-template-branch
+          git add .
+          git commit -m "Sync from template"
+          git push origin sync-template-branch
+
+      # Create a Pull Request
+      - name: Create Pull Request
+        run: |
+          gh auth login --with-token < ${{ secrets.MY_CLASSIC_PAT }}
+          gh pr create -B main -H sync-template-branch --title "Sync with Base Template" --body "This pull request updates the repo with private template changes."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
