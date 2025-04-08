@@ -9,12 +9,10 @@ A template to store assets for Azure Cloud but can be used with any other cloud 
 │   LICENSE
 │   README.md
 │
-├───DataFactory
-│   ├───Pipelines
-│   │       CopyProcessAndDeleteFile.json
-│   │
-│   └───Triggers
-│           TR_SC_CopyProcessAndDeleteFile.json
+├───.github
+│   └───workflows
+│           github-action-sync-repo.yml
+│           main.yml
 │
 ├───Notebooks
 │   │   DevPlayGround.py
@@ -39,16 +37,30 @@ A template to store assets for Azure Cloud but can be used with any other cloud 
 │   └───config
 │           sourceConnectionDetails.json
 │
-└───Synapse
-        DataDebug.sql
+├───Warehouse
+│       DataDebug.sql
+│
+└───WorkFlows
+    ├───Pipelines
+    │       CopyProcessAndDeleteFile.json
+    │
+    └───Triggers
+            TR_SC_CopyProcessAndDeleteFile.json
 ```
 
 ## Folder Description
 
 |Folder|Parent|Description|
 |------|------|-----------|
-|AAA|bbbb|aaaaa|
-| |AAA|asasasas|
+|Notebooks| |To stor the ETL code either Databricks or any other|
+||||
+|Scripts||To store different scripts to run from gt shell or powershell etc.|
+||||
+|Storage||TO store the static file in the Storage|
+||||
+|Warehouse||To strore the Analyical or Sql scripts created on top of the Data layer|
+||||
+|WorkFlows||Tp store the ETL pipeline and trigger details.|
 ||||
 
 

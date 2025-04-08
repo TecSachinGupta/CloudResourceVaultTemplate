@@ -45,6 +45,6 @@ jobs:
           # gh auth login --with-token < ${{ secrets.MY_CLASSIC_PAT }}
           gh pr create -B main -H sync-template-branch --title "Sync with Base Template" --body "This pull request updates the repo with private template changes."
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.MY_CLASSIC_PAT }}
+          GITHUB_TOKEN: ${{ secrets.MY_CLASSIC_PAT }}
         if: github.repository != env.SOURCE_REPOSITORY
