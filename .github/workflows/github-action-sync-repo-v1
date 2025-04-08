@@ -1,3 +1,6 @@
+# If any want to test this please add .yml in file name and then update
+# check in the Actions you will fin repo-sync as workflow
+#
 name: repo-sync
 
 # Doc: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
