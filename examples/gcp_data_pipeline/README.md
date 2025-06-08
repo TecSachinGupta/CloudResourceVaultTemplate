@@ -1,0 +1,1 @@
+# Placeholder for examples/gcp_data_pipeline/README.md

@@ -1,0 +1,1 @@
+# Placeholder for docs/providers/gcp.md

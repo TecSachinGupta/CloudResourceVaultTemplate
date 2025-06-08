@@ -1,0 +1,1 @@
+# Placeholder for .github/ISSUE_TEMPLATE/documentation_update.md

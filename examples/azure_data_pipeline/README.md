@@ -1,0 +1,1 @@
+# Placeholder for examples/azure_data_pipeline/README.md

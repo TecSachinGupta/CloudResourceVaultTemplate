@@ -1,0 +1,1 @@
+# Placeholder for terraform/modules/aws/redshift/README.md

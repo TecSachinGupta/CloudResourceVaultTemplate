@@ -1,0 +1,1 @@
+# Placeholder for terraform/modules/azure/synapse/README.md
